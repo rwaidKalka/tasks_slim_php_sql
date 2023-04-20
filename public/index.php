@@ -15,6 +15,11 @@ $config();
 
 $app=AppFactory::create();
 
+$app->post('/',function($req,$res){
+    $res->getBody()->write(json_encode($_ENV));
+    return $res;
+});
+
 ///Routes
 $authRoutes=require(routes_path('auth_routes.php'));
 $authRoutes($app);
