@@ -17,14 +17,12 @@ $app=AppFactory::create();
 
 $app->addBodyParsingMiddleware();
 
-$app->post('/',function($req,$res){
-    $res->getBody()->write(json_encode($_ENV));
-    return $res;
-});
-
 ///Routes
 $authRoutes=require(routes_path('auth_routes.php'));
 $authRoutes($app);
+
+$tasksRoutes=require(routes_path('tasks_routes.php'));
+$tasksRoutes($app);
 
 ///Error Middleware
 $errorMiddleware=require(middleware_path('error.php'));
@@ -33,6 +31,7 @@ $errorMiddleware($app);
 ///Not Found Middleware
 $notFoundMiddleware=require(middleware_path('not_found.php'));
 $notFoundMiddleware($app);
+
 
 
 $app->run();

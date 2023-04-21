@@ -31,7 +31,7 @@ class AuthMiddleware
         }
     
         // Add the decoded payload to the request attributes
-        $request = $request->withAttribute('token', $payload);
+        $request = $request->withAttribute('user', $payload);
     
         // Call the next middleware
         $response = $handler->handle($request);

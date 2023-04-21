@@ -2,7 +2,7 @@
 use Slim\App;
 use Slim\Routing\RouteCollectorProxy;
 require(controllers_path('auth_controller.php'));
-$authMiddleware=require(middleware_path('auth.php'));
+require(middleware_path('auth.php'));
 
 return function(App $app){
     $app->group('/api/auth',function(RouteCollectorProxy $group){
