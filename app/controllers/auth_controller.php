@@ -31,7 +31,9 @@ class AuthController{
         }
 
         $payload = array(
-            "sub" => $user->id,
+            "user_id" => $user->id,
+            "user_name" => $user->username,
+            "user_email" => $user->email,
             "iat" => time(),
         );
         $jwt = JWT::encode($payload, $_ENV['SECERET_KEY'],$_ENV["ALGORITHM"]);
@@ -65,7 +67,9 @@ class AuthController{
         $user=User::create(['username'=>$username,'email'=>$email, 'password' => $hashedPassword]);
 
         $payload = array(
-            "sub" => $user->id,
+            "user_id" => $user->id,
+            "user_name" => $user->username,
+            "user_email" => $user->email,
             "iat" => time(),
         );
         $jwt = JWT::encode($payload, $_ENV['SECERET_KEY'],$_ENV["ALGORITHM"]);
@@ -79,6 +83,8 @@ class AuthController{
 
 
     function logout(Request $request, Response $response, array $args):Response{
-        return send_response($response,["messsage"=>"logged out successfully"],400);
+
+        $user=$request->getAttribute('token');
+        return send_response($response,["messsage"=>"logged out successfully","user"=>$user],200);
     }
 }
