@@ -5,6 +5,7 @@ use PSr\Http\Message\ServerRequestInterface as Request;
 use Firebase\JWT\JWT;
 require(models_path('User.php'));
 
+
 class AuthController{
     function login(Request $request, Response $response, array $args):Response{
         $body=$request->getParsedBody();
@@ -83,8 +84,7 @@ class AuthController{
 
 
     function logout(Request $request, Response $response, array $args):Response{
-
-        $user=$request->getAttribute('token');
+        $user=$request->getAttribute('user');
         return send_response($response,["messsage"=>"logged out successfully","user"=>$user],200);
     }
 }

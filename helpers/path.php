@@ -32,6 +32,14 @@ if (!function_exists('database_path'))
     }
 }
 
+if (!function_exists('utils_path'))
+{
+    function utils_path($path = '')
+    {
+        return app_path("utils/{$path}");
+    }
+}
+
 
 if (!function_exists('public_path'))
 {
