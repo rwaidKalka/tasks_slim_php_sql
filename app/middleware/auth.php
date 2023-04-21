@@ -3,6 +3,8 @@ use Firebase\JWT\JWT;
 use Firebase\JWT\Key;
 use Psr\Http\Message\ServerRequestInterface as Request;
 use Psr\Http\Server\RequestHandlerInterface as RequestHandler;
+use Slim\Psr7\Factory\StreamFactory;
+use Slim\Psr7\Headers;
 use Slim\Psr7\Response;
 
 class AuthMiddleware
@@ -13,7 +15,9 @@ class AuthMiddleware
 
         if (!$token) {
             // Token not found, return a 401 Unauthorized response
-            return new Response(401);
+            $bodyStream = (new StreamFactory())->createStream(json_encode(["error"=>true,"message" => "token not found"]));
+            $headers = new Headers(['Content-Type' => 'application/json']);
+            return new Response(401,$headers,$bodyStream);
         }
     
         // Verify the token signature and decode the payload
@@ -21,7 +25,9 @@ class AuthMiddleware
             $payload = JWT::decode($token, new Key($_ENV['SECERET_KEY'], $_ENV['ALGORITHM']));
         } catch (Exception $e) {
             // Token is invalid, return a 401 Unauthorized response
-            return new Response(401);
+            $bodyStream = (new StreamFactory())->createStream(json_encode(["error"=>true,"message" => "Invalid token"]));
+            $headers = new Headers(['Content-Type' => 'application/json']);
+            return new Response(401,$headers,$bodyStream);
         }
     
         // Add the decoded payload to the request attributes
