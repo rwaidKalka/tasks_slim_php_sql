@@ -9,6 +9,4 @@ return function(App $app){
       $group->post('/logout',AuthController::class.":logout");
       $group->post('/register',AuthController::class.":register");
     });
-
-
 };

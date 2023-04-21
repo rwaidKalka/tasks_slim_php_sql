@@ -15,6 +15,14 @@ if (!function_exists('app_path'))
     }
 }
 
+if (!function_exists('errors_path'))
+{
+    function errors_path($path = '')
+    {
+        return  app_path("errors/${path}");
+    }
+}
+
 
 if (!function_exists('database_path'))
 {

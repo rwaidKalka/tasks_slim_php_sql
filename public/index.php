@@ -15,6 +15,8 @@ $config();
 
 $app=AppFactory::create();
 
+$app->addBodyParsingMiddleware();
+
 $app->post('/',function($req,$res){
     $res->getBody()->write(json_encode($_ENV));
     return $res;
@@ -31,6 +33,7 @@ $errorMiddleware($app);
 ///Not Found Middleware
 $notFoundMiddleware=require(middleware_path('not_found.php'));
 $notFoundMiddleware($app);
+
 
 $app->run();
 ?>

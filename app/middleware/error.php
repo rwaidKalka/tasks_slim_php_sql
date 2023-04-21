@@ -13,26 +13,18 @@ return function(App $app){
         bool $logErrorDetails,
         ?LoggerInterface $logger = null
     ) use ($app) {
-    
-        $typeOfException=explode('\\',get_class($exception));
-        $count=count($typeOfException);
-        $type=$typeOfException;
-        if($count>1){
-          $type=$typeOfException[$count-1];
-        }
+           
         $payload = [
             'error' =>true,
             'message'=>$exception->getMessage(),
-            'type'=>$type,
         ];
-    
+
         $response = $app->getResponseFactory()->createResponse();
         $response->getBody()->write(json_encode($payload, JSON_UNESCAPED_UNICODE));
-        $response->withHeader('Content-Type', 'application/json')->withStatus($exception->getCode());
-        return $response;
+        return $response->withStatus(500)->withHeader('Content-Type', 'application/json');
     };
     
     // Add Error Middleware
-    $errorMiddleware = $app->addErrorMiddleware(false, true, true);
+    $errorMiddleware = $app->addErrorMiddleware(true, true, true);
     $errorMiddleware->setDefaultErrorHandler($customErrorHandler);
 };
