@@ -1,4 +1,5 @@
 <?php
+use App\Models\User;
 use Slim\Factory\AppFactory;
 use Dotenv\Dotenv;
 

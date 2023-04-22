@@ -1,8 +1,9 @@
 <?php
 namespace App\Models;
-use Illuminate\Database\Eloquent\Model as Eloquent;
+use Illuminate\Database\Eloquent\Model ;
+use Illuminate\Database\Eloquent\Relations\HasMany;
 
-class User extends Eloquent
+class User extends Model
 {
     protected $table = 'users';
 
@@ -12,4 +13,10 @@ class User extends Eloquent
     protected $hidden = ['password'];
 
     public $timestamps = false;
+
+    public function tasks(): HasMany
+    {
+        return $this->hasMany(Task::class);
+    }
+
 }
