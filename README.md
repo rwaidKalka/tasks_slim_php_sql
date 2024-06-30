@@ -16,3 +16,4 @@ A robust and scalable **Task Management API** built with Slim PHP, MySQL, and El
 - **MySQL**: Reliable and efficient database.
 - **Eloquent ORM**: Elegant and fluent database interaction.
 - **JWT Authentication**: Secure user login and token management.
+- **Folder Structure**: Well maintained and scalable folder structure.
